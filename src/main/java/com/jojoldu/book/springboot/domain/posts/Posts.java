@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class Posts extends BaseTimeEntity { //Entity 클래스에서는 절대 setter 메소드를 만들지않음/ 대신 해당필드 값 변경이 필요하면 명확히 그 목적과 의도를 나타낼수 있는 메소드를
     //추가해야함. 메소드를 'setStatus(boolean status) this.status=status' 이렇게말고 'cancelOrder() this.status=false'로 목적과 의도를 명확히
 
-    @Id //해당 테이블의 PK 필드를 나타냄,d,df,dfd,2,dfdfdfdf
+    @Id //해당 테이블의 PK 필드를 나타냄
     @GeneratedValue(strategy = GenerationType.IDENTITY) //.identity = <데이터베이스>에 자동생성 위임(AUTO_INCREMENT)
     private Long id;
 
