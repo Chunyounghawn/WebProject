@@ -37,6 +37,8 @@ dependencies {
     compile('com.h2database:h2')//인메릴 관계형 데이터베이스(메모리에서 실행됨,로컬,테스트용도,초기화됨 / 프로젝트 의존성만으로 관리가능
 
     compile('org.springframework.boot:spring-boot-starter-mustache') //스프링부트 공식지원 템플릿 엔진
+
+    compile('org.springframework.boot:spring-boot-starter-oauth2-client') //소셜로그인 등 클라입장에서 소셜기능 구현시 필요한 의존성.
 }
 
 test {
