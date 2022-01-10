@@ -39,8 +39,16 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-mustache') //스프링부트 공식지원 템플릿 엔진
 
     compile('org.springframework.boot:spring-boot-starter-oauth2-client') //소셜로그인 등 클라입장에서 소셜기능 구현시 필요한 의존성.
-}
 
+    compile('org.springframework.session:spring-session-jdbc')
+
+    testImplementation("org.junit.vintage:junit-vintage-engine") {
+        exclude group: "org.hamcrest", module: "hamcrest-core"
+    }
+
+    testCompile("org.springframework.security:spring-security-test") //테스트를 위한 임의로 인증된 사용자 추가, 스프링 시큐리티 테스트를 위한 여러도구 지원함.
+
+}
 test {
     useJUnitPlatform()
 }
