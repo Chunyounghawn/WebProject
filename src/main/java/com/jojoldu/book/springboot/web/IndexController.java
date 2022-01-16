@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RequiredArgsConstructor
 @Controller
 public class IndexController {
-
+//tptp
     private final PostsService postsService;
     //(반복개선)private final HttpSession httpSession;
 
