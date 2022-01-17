@@ -1,6 +1,10 @@
-language: java
 os: linux
+
+language: java
+
 dist: xenial
+
+
 
 jdk:
   - openjdk8
