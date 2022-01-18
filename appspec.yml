@@ -1,0 +1,7 @@
+#codedeploy 설정파일
+version: 0.0
+os: linux
+files:
+  - source: / #루트지정.모든파일 이동
+    destination: /home/ec2-user/app/step2/zip/ #모든파일 이동경로. 파일받을 위치
+    overwrite: yes #덮어쓰기
