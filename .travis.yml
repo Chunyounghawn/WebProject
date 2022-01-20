@@ -29,7 +29,7 @@ before_deploy:
   - cp scripts/*.sh before-deploy/ # 포함시킬 파일들 저장
   - cp appspec.yml before-deploy/
   - cp build/libs/*.jar before-deploy/ #이렇게 3가지 필요
-  - cd before-deploy && zip -r before-deploy * # before-deplo로 이동후 전체암축
+  - cd before-deploy && zip -r before-deploy * # before-deploy로 이동후 전체암축
   - cd ../ && mkdir -p deploy # 상위디렉토리 이동후 deploy 디렉토리 생성
   - mv before-deploy/before-deploy.zip deploy/freelec-springboot2-webservice.zip # deploy로 zip파일 이동
 
