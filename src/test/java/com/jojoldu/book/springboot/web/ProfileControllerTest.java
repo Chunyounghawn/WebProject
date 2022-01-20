@@ -1,4 +1,4 @@
-package com.jojoldu.book.springboot.web.dto;
+package com.jojoldu.book.springboot.web;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 //SecurityConfig 설정 테스트코드. 시류티리설정을위한 @SpringBootTest를 사용하는 테스트 클래스.
 @RunWith(SpringRunner.class)
@@ -24,7 +24,7 @@ public class ProfileControllerTest {
     private TestRestTemplate restTemplate;
 
     @Test
-    public void profile은_인증없이_호출된다() throws Exception{
+    public void profile은_인증없이_호출된다() {
         String expected = "default";
 
         ResponseEntity<String> response = restTemplate.getForEntity("/profile", String.class);
