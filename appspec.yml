@@ -15,15 +15,7 @@ permissions:
 
 #CodeDeploy 배포단게에서 실행할 명령어 지정. ApplicationStart단게에서 deploy.sh를 ec2-user권한으로 실행, 60초동안. 이후실패
 hooks:
-  AfterInstall:
-    - location: stop.sh # 엔진엑스와 연결되어 있지 않은 스프링 부트를 종료합니다.
-      timeout: 60
-      runas: ec2-user
   ApplicationStart:
     - location: start.sh # 엔진엑스와 연결되어 있지 않은 Port로 새 버전의 스프링 부트를 시작합니다.
-      timeout: 60
-      runas: ec2-user
-  ValidateService:
-    - location: health.sh # 새 스프링 부트가 정상적으로 실행됐는지 확인 합니다.
       timeout: 60
       runas: ec2-user
