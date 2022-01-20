@@ -32,7 +32,7 @@ public class IndexController {
     */
 
     @GetMapping("/")
-    public String idnex(Model model, @LoginUser SessionUser user) {  //httpSession.getAttribute("user")(부분 개선),
+    public String index(Model model, @LoginUser SessionUser user) {  //httpSession.getAttribute("user")(부분 개선),
         // 이제 어느 컨트롤러든지 @LoginUser만 사용하면 세션정보 가져올수 있음.
         model.addAttribute("posts", postsService.findAllDesc());
 
