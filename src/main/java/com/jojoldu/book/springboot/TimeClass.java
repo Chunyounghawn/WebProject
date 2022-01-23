@@ -8,7 +8,7 @@ import java.util.TimeZone;
 public class TimeClass {
 
     public static void main(String[] args) {
-        SpringApplication.run(TimeClass.class, args);
+        SpringApplication.run(TimeClass.class, args);//d
     }
 
     @PostConstruct
