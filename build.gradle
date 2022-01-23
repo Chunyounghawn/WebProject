@@ -20,7 +20,7 @@ apply plugin: 'io.spring.dependency-management'
 
 group 'com.jojoldu.book'
 version '1.0.1-SNAPSHOT-'+new Date().format("yyyyMMddHHmmss")
-
+//매번 업데이트될때마다 시간별로 버전업
 
 repositories {
     mavenCentral()
