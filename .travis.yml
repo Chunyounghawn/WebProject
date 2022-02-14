@@ -1,0 +1,72 @@
+#travis ci 설정파일
+os: linux
+
+language: java
+
+dist: xenial
+
+
+jdk:
+  - openjdk8
+
+branches:
+  only:
+    - main
+
+# Travis CI 서버의 Home
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.gradle'
+
+script: "./gradlew clean build"
+
+before_install:
+  - chmod +x gradlew
+
+before_deploy:
+  - mkdir -p before-deploy # zip에 포함시킬 파일들을 담을 디렉토리 생성 / travis ci 는 S3로 특정파일만 업로드 안되고 디렉토리를 업로드해야되기때문에 항상 생성해야함.
+  - cp scripts/*.sh before-deploy/ # 포함시킬 파일들 저장
+  - cp appspec.yml before-deploy/
+  - cp build/libs/*.jar before-deploy/ #이렇게 3가지 필요
+  - cd before-deploy && zip -r before-deploy * # before-deploy로 이동후 전체암축
+  - cd ../ && mkdir -p deploy # 상위디렉토리 이동후 deploy 디렉토리 생성
+  - mv before-deploy/before-deploy.zip deploy/freelec-springboot2-webservice.zip # deploy로 zip파일 이동
+
+  #- zip -r freelec-springboot2-webservice * # CodeDeploy는 Jar파일은 인식못하므로 zip으로 압축함.
+  #- mkdir -p deploy
+  #- mv freelec-springboot2-webservice.zip deploy/freelec-springboot2-webservice.zip
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY # Travis repo settings에 설정된 값
+    secret_access_key: $AWS_SECRET_KEY # Travis repo settings에 설정된 값
+    bucket: cyh-freelec-springboot-build # S3 버킷
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl: private # zip 파일 접근을 private으로
+    local_dir: deploy # before_deploy에서 생성한 디렉토리, 해당위치 파일들만 s3로 이동함.
+    wait-until-deployed: true
+    on:
+      all_branches: true
+
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY # Travis repo settings에 설정된 값
+    secret_access_key: $AWS_SECRET_KEY # Travis repo settings에 설정된 값
+    bucket: cyh-freelec-springboot-build # S3 버킷
+    key: freelec-springboot2-webservice.zip # 빌드 파일을 압축해서 전달
+    bundle_type: zip # 압축 확장자.
+    application: freelec-springboot2-webservice # 웹 콘솔에서 등록한 CodeDeploy 애플리케이션
+    deployment_group: freelec-springboot2-webservice-group # 웹 콘솔에서 등록한 CodeDeploy 배포그룹
+    region: ap-northeast-2
+    wait-until-deployed: true
+    on:
+      all_branches: true
+
+
+
+# CI 실행 완료시 메일로 알람.
+notifications:
+  email:
+    recipients:
+      - younghawn6868@gmail.com

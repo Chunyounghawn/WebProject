@@ -14,10 +14,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception{
-        http.csrf().disable().headers().frameOptions().disable() //위에줄이랑 이거랑 h2-console 화면을 사용하기위해 비활성화
+        http.csrf().disable().headers().frameOptions().disable() //위에줄..이랑 이거랑 h2-console 화면을 사용하기위해 비활성화
                 .and()
-                    .authorizeRequests() //URL별 권한 관리를 설정하는 옵션의 시작점. 이게있어야 antMathcers 옵션 사용가능
-                    .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**").permitAll() //"/"등 지정된 URL들은 permitAll()옵션을 통해 전체 열람 권한 줌
+                    .authorizeRequests() //URL별 권한 관리를 설정하는 옵션의 시,작점. 이게있어야 antMathcers 옵션 사용가능
+                    .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/profile").permitAll() //"/"등 지정된 URL들은 permitAll()옵션을 통해 전체 열람 권한 줌
                     .antMatchers("/api/v1/**").hasRole(Role.USER.name()) ///api/v1/** 주소를 가진 API는 USER 권한을 가진 사람만 가능하도록 함.
                     .anyRequest().authenticated() //나머지 URL은 authenticated를 사용하여 인증된 사용자들에게만 허용. 즉 로그인한 사용자들만 가능
                 .and()

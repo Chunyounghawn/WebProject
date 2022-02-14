@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class IndexController {
 
     private final PostsService postsService;
+
+
     //(반복개선)private final HttpSession httpSession;
 
     /*//(반복개선)
@@ -30,32 +32,26 @@ public class IndexController {
         return "index"; //머스테치 스타터때문에 컨트롤러에서 문자열 반환할때 앞의 경로와 뒤의 파일확장자는 자동지정 / src/main/resources/templates/index.mustache
     }
     */
-
     @GetMapping("/")
-    public String idnex(Model model, @LoginUser SessionUser user) {  //httpSession.getAttribute("user")(부분 개선),
+    public String index(Model model, @LoginUser SessionUser user) {//httpSession.getAttribute("user")(부분 개선),
         // 이제 어느 컨트롤러든지 @LoginUser만 사용하면 세션정보 가져올수 있음.
         model.addAttribute("posts", postsService.findAllDesc());
-
-        if(user != null){
+        if (user != null) {
             model.addAttribute("userNames", user.getName());
-            System.out.println(model.toString());
         }
-
         return "index";
     }
 
-
     @GetMapping("/posts/save")
-    public String postsSave(){
-        return "posts-save"; //posts-save.mustache를 호출
+    public String postsSave() {
+        return "posts-save";
     }
 
     @GetMapping("/posts/update/{id}")
-    public String postsUpdate(@PathVariable Long id, Model model){
+    public String postsUpdate(@PathVariable Long id, Model model) {
         PostsResponseDto dto = postsService.findById(id);
         model.addAttribute("post", dto);
+
         return "posts-update";
     }
-
-
 }
