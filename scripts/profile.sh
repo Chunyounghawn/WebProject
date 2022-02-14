@@ -9,7 +9,7 @@ function find_idle_profile()
 # 스프링부트가 정상적으로 수행중인지 확인
     if [ ${RESPONSE_CODE} -ge 400 ] # 400 보다 크면 (즉, 40x/50x 에러 모두 포함)
     then
-        CURRENT_PROFILE=real2
+        CURRENT_PROFILE=real2 #초기에 real2가 구동중인것으로알고 이렇게해놈 처음엔.
     else
         CURRENT_PROFILE=$(curl -s http://localhost/profile)
     fi
