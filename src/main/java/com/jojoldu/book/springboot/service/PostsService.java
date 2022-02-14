@@ -49,7 +49,7 @@ public class PostsService {
         return new PostsResponseDto(entity);
     }
 
-    @Transactional(readOnly = true) //reonly해야 조회속도 개선.
+    @Transactional(readOnly = true) //readonly해야 조회속도 개선.
     public List<PostsListResponseDto> findAllDesc(){
         return postsRepository.findAllDesc().stream()
                 .map(posts -> new PostsListResponseDto(posts))
